@@ -1,0 +1,48 @@
+<script>
+/* Fabiana é uma pessoa muito indecisa, e precisa juntar dinheiro para 
+    em suas férias viajar.
+    Ela terá algumas opções a escolhewr com seus respectivos valores
+    
+    Dysney = R$ 15000
+    Madrid = R$ 12000
+    Maceió = R$ 8000
+    Ribeirão Preto = R$ 5000
+
+    Faça um programa que solicite o nom do usuário
+    o valor que o usuário tem para a viagem
+    a viagem que o usuário deseja e mostre no finaç do programa
+    se o usuário pode viajar ou se ele não pode.
+    Se ele não puder viajar, mostre o quanto falta para o mesmo economizar.
+
+    */
+    nome=Number(prompt("Qual seu nome?"))
+    dinheiro = Number(prompt("Quanto dinheiro possui para a viage?"))
+    local=prompt(` Digite o número da viagem que deseja consultar
+        1= Disney, 2= Madrid, 3= Maceió e 4= Ribeirão Preto
+    `)
+    custo=-1
+    switch (local){
+        case "1": 
+            custo=15000
+            break
+        case "2":
+            custo=12000
+            break
+        case "3":
+            custo=8000
+            break
+        case "4":
+            custo=5000
+            break
+    }
+    if(custo>0){
+        if(dinheiro>=custo){
+            alert("Será possível sim fazer a viagem")
+        }else{
+            alert(`Não será possível fazer a viagem pois lhe falta juntar ${(dinheiro-custo).toFixed(2)} reais`)
+        }
+        
+    }else{
+        alert("Digite um número válido")
+    }
+</script>
