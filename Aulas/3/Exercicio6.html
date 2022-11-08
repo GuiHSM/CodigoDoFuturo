@@ -1,0 +1,24 @@
+<script>
+/* 
+João precisa de um sistema que solicite o número de ínicio
+e o número final da operação
+Faça um programa que mostre somente os números pares entre os números digitados
+
+Exemplo de execução:
+Digite o Primeiro número
+1
+Digite o Número Final
+10
+Irá mostrar os valores:
+2,4,6,8,10
+*/
+let ini=parseInt(prompt("Digite o Primeiro Número"))
+let ult=parseInt(prompt("Digite o Último Número"))
+if(ini%2==1){
+    ini+=1;
+}
+for(let i=ini;i<=ult;i+=2){
+    alert(i);
+}
+
+</script>
