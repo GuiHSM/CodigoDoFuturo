@@ -39,7 +39,7 @@
         if(dinheiro>=custo){
             alert(`${nome}, será possível sim fazer a viagem`)
         }else{
-            alert(`${nome}, não será possível fazer a viagem pois lhe falta juntar ${(custo-dinheiro).toFixed(2)} reais`)
+            alert(`${nome}, não será possível fazer a viagem pois lhe falta juntar ${(custo-dinheiro).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`)
         }
         
     }else{
