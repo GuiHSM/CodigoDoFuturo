@@ -1,5 +1,5 @@
 <script>
-/* Fabiana é uma pessoa muito indecisa, e precisa juntar dinheiro para 
+/* Bianca é uma pessoa muito indecisa, e precisa juntar dinheiro para 
     em suas férias viajar.
     Ela terá algumas opções a escolhewr com seus respectivos valores
     
@@ -15,8 +15,8 @@
     Se ele não puder viajar, mostre o quanto falta para o mesmo economizar.
 
     */
-    nome=Number(prompt("Qual seu nome?"))
-    dinheiro = Number(prompt("Quanto dinheiro possui para a viage?"))
+    nome=prompt("Qual seu nome?")
+    dinheiro = Number(prompt("Quanto dinheiro possui para a viagem?"))
     local=prompt(` Digite o número da viagem que deseja consultar
         1= Disney, 2= Madrid, 3= Maceió e 4= Ribeirão Preto
     `)
@@ -37,12 +37,12 @@
     }
     if(custo>0){
         if(dinheiro>=custo){
-            alert("Será possível sim fazer a viagem")
+            alert(`${nome}, será possível sim fazer a viagem`)
         }else{
-            alert(`Não será possível fazer a viagem pois lhe falta juntar ${(dinheiro-custo).toFixed(2)} reais`)
+            alert(`${nome}, não será possível fazer a viagem pois lhe falta juntar ${(custo-dinheiro).toFixed(2)} reais`)
         }
         
     }else{
-        alert("Digite um número válido")
+        alert(`${nome}, Por favor, Digite um número válido`)
     }
 </script>
