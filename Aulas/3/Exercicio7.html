@@ -1,0 +1,71 @@
+<script>
+    /*
+    Francisco precisa de um sistema para gerenciar sua escola
+    Neste sistema precisamos capturar o aluno com as seguintes informaçoes
+
+    aluno
+        - nome
+        - matricula
+        - notas
+
+    as notas podem ser quantas o sistema quiser, ou seja deixe o usuário escolher a quantidade de notas
+
+    neste sistema você irá precisar de um menu onde irá fazer o:
+    Cadastro de alunos, digitando nome e matricula e notas
+    vai precisar de um relatório, onde irá mostrar a lista dos alunos
+    com nome, matricula, notas, média, aprovado/reprovado/recuperação
+    Critério:
+    se a nota for >= 7 aprovado
+    se a nota for entre 5 e menor que 7 - Recuperação
+    se a nota for menor que 5 -  Reprovado
+    */
+    banco=[];
+    sair=false;
+    quantidadeAlunos=0;
+    do{
+        let op=prompt(`
+            1:Cadastro de Alunos, 2:Relatório, 0:Sair do Sistema
+        `)
+        switch(op){
+            case "0":
+                sair=true;
+                break;
+            case "1":
+                quantidadeAlunos++;
+                let nome=prompt("Digite o nome do aluno/a");
+                let matricula=prompt("Digite a matrícula do aluno/a");
+                let aux=Number(prompt("Digite a 1ª nota do aluno/a"));
+                let numeroNotas=0;
+                let total=0;
+                let nota=[];
+                do{
+                    total+=aux;
+                    numeroNotas+=1;
+                    nota.push(aux);
+                    aux=Number(prompt(`Digite a ${numeroNotas+1}ª nota do aluno/a
+                    Digite um número menor que 0 para parar de adicionar notas`));
+                }while(aux>=0)
+                let media=total/numeroNotas;
+                let status="Aprovado";
+                if(media<5){
+                    status="Reprovado";
+                }else if(media<7){
+                    status="Recuperação";
+                }
+                let aluno={nome:nome,matricula:matricula,quantidadeNotas:quantidadeAlunos,nota:nota,media:media,status:status};
+                banco.push(aluno);
+                break;
+            case "2":
+                let relatorio="";
+                for(let i=0;i<quantidadeAlunos;i++){
+                    relatorio+=`Nome ${banco[i].nome}, Matrícula ${banco[i].matricula}, Média ${banco[i].media}\n`;
+                    for(let j=0;j<banco[i];j++){
+                        relatorio+=`${j+1}ª Nota igual a ${banco[i].nota[j]} `;
+                    } 
+                    relatorio+=`Status: ${banco[i].status}\n\n`;
+                }
+                alert(relatorio)
+                break;
+        }
+    }while(!sair)
+</script>
