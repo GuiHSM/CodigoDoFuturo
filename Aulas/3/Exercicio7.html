@@ -42,27 +42,29 @@
                     total+=aux;
                     numeroNotas+=1;
                     nota.push(aux);
-                    aux=Number(prompt(`Digite a ${numeroNotas+1}ª nota do aluno/a
-                    Digite um número menor que 0 para parar de adicionar notas`));
+                    aux=Number(prompt(`Digite a ${numeroNotas+1}ª nota do aluno/a\nDigite um número menor que 0 para parar de adicionar notas`));
                 }while(aux>=0)
-                let media=total/numeroNotas;
+                let media=(total/numeroNotas).toFixed(2);
                 let status="Aprovado";
                 if(media<5){
                     status="Reprovado";
                 }else if(media<7){
                     status="Recuperação";
                 }
-                let aluno={nome:nome,matricula:matricula,quantidadeNotas:quantidadeAlunos,nota:nota,media:media,status:status};
+                let aluno={nome:nome,matricula:matricula,quantidadeNotas:numeroNotas,nota:nota,media:media,status:status};
                 banco.push(aluno);
                 break;
             case "2":
                 let relatorio="";
                 for(let i=0;i<quantidadeAlunos;i++){
                     relatorio+=`Nome ${banco[i].nome}, Matrícula ${banco[i].matricula}, Média ${banco[i].media}\n`;
-                    for(let j=0;j<banco[i];j++){
+                    for(let j=0;j<banco[i].quantidadeNotas;j++){
+                        if(j%2==0&&j>0){
+                            relatorio+=`\n`;
+                        }
                         relatorio+=`${j+1}ª Nota igual a ${banco[i].nota[j]} `;
                     } 
-                    relatorio+=`Status: ${banco[i].status}\n\n`;
+                    relatorio+=`\nStatus: ${banco[i].status}\n\n`;
                 }
                 alert(relatorio)
                 break;

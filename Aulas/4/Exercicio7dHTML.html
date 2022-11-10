@@ -1,0 +1,156 @@
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+</style>
+<script>
+    /*
+    Francisco precisa de um sistema para gerenciar sua escola
+    Neste sistema precisamos capturar o aluno com as seguintes informaçoes
+
+    aluno
+        - nome
+        - matricula
+        - notas
+
+    as notas podem ser quantas o sistema quiser, ou seja deixe o usuário escolher a quantidade de notas
+
+    neste sistema você irá precisar de um menu onde irá fazer o:
+    Cadastro de alunos, digitando nome e matricula e notas
+    vai precisar de um relatório, onde irá mostrar a lista dos alunos
+    com nome, matricula, notas, média, aprovado/reprovado/recuperação
+    Critério:
+    se a nota for >= 7 aprovado
+    se a nota for entre 5 e menor que 7 - Recuperação
+    se a nota for menor que 5 -  Reprovado
+    */
+    class Aluno{
+        constructor(nome,matricula,notas) {
+            this.nome = nome;
+            this.matricula = matricula;
+            this.notas = notas;
+        }
+        getMedia(){
+            let soma = 0;
+            this.notas.forEach(nota => {
+                soma+= Number(nota);
+            });
+            return soma / this.notas.length;
+        }
+        getStatus(){
+            let media = this.getMedia();
+            if(media<5){
+                return "Reprovado";
+            }else if(media<7){
+                return "Recuperação";
+            }
+            return "Aprovado";
+        }
+    }
+    const appData={};
+    appData.banco=[];
+    appData.linhaAluno = (aluno) =>{
+        let texto=`<tr>
+                <td>${aluno.nome}</td> 
+                <td>${aluno.matricula}</td>
+                <td>${aluno.notas.join(", ")}</td>
+                <td>${aluno.getMedia().toFixed(2)}</td>
+                <td>${aluno.getStatus()}</td>
+            </tr>`;
+        return texto;
+    }
+    appData.listaAluno = ()=>{
+        let linhas="";
+        appData.banco.forEach(aluno => {
+            linhas+=appData.linhaAluno(aluno);
+        });
+        document.getElementById("bodyTable").innerHTML = linhas;
+    }
+    appData.valida=()=>{
+        let errado=true;
+        if(document.getElementById("nome").value==""){
+            alert("Por favor digite um nome válido");
+                document.getElementById("nome").focus();
+            errado=false;
+        }
+        if(document.getElementById("matricula").value==""){
+            alert("Por favor digite uma matricula válida");
+                document.getElementById("matricula").focus();
+            errado=false;
+        }
+        if(document.getElementById("notas").value==""){
+            alert("Por favor digite pelo menos uma nota");
+                document.getElementById("notas").focus();
+            errado= false;
+        }
+        document.getElementById("notas").value.split(",").forEach(numero => {
+            if(Number(numero)<0){
+                alert("Por favor, digite apenas números positivos");
+                document.getElementById("notas").focus();
+                errado= false;
+            }
+        });
+        return errado;
+    }
+    appData.cadastraAluno = ()=>{
+        if(!appData.valida()) {
+            return;
+        }
+        debugger;
+        let nome=document.getElementById("nome").value;
+        let matricula=document.getElementById("matricula").value;
+        let nota = (document.getElementById("notas").value).split(",");
+        document.getElementById("nome").value="";
+        document.getElementById("matricula").value="";
+        document.getElementById("notas").value="";
+        appData.banco.push(new Aluno(nome,matricula,nota));
+    }
+    appData.mostraCadastro= ()=>{
+        document.getElementById("relatorio").style.display = "none";
+        document.getElementById("cadastro").style.display = "block";
+    }
+    appData.mostraRelatorio = ()=>{
+        document.getElementById("cadastro").style.display = "none";
+        document.getElementById("relatorio").style.display = "block";
+        appData.listaAluno();
+    }
+</script>
+<button onclick="appData.mostraCadastro()">Cadastrar</button>
+<button onclick="appData.mostraRelatorio()">Listar</button>
+<form id="cadastro">
+    <label for="nomes">Nome</label><br>
+    <input type="text" id="nome"></input><br>
+    <label for="matricula">Matrícula</label><br>
+    <input type="text" id="matricula"></input><br>
+    <label for="notas">Notas Separada por uma vírgula</label><br>
+    <input type="text" id="notas"></input><br>
+    <button type="button" onclick="appData.cadastraAluno()">Cadastrar</button>
+</form>
+<table id="relatorio" >
+    <thead>
+        <td>Nome</td> 
+        <td>Matricula</td>
+        <td>Notas</td>
+        <td>Media</td>
+        <td>Status</td>
+    </thead>
+    <tbody id="bodyTable">
+
+    </tbody>
+</table>
+<script>
+    document.getElementById("cadastro").style.display = "none";
+        document.getElementById("relatorio").style.display = "none";
+</script>

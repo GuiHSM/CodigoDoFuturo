@@ -1,0 +1,19 @@
+<script>
+    //join
+    let notas=[10,8,6,5,7];
+    alert(notas.join(", "));
+    //for in
+    let aluno={nome:"Guilherme",matricula:"11222061",notas:"10,8,6,7"};
+    let texto="";
+    for (let prop in aluno) {
+        texto+=`${prop}: ${aluno[prop]} `;
+    }
+    alert(texto);
+    //for each
+    let nomes =["Guilherme", "Abigail", "Madeline","Eustácio"];
+    let siglas="";
+    nomes.forEach(nome => {
+        siglas+=nome.charAt(0);
+    });
+    alert(siglas);
+</script>

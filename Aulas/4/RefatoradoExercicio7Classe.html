@@ -1,0 +1,98 @@
+<script>
+    /*
+    Francisco precisa de um sistema para gerenciar sua escola
+    Neste sistema precisamos capturar o aluno com as seguintes informaçoes
+
+    aluno
+        - nome
+        - matricula
+        - notas
+
+    as notas podem ser quantas o sistema quiser, ou seja deixe o usuário escolher a quantidade de notas
+
+    neste sistema você irá precisar de um menu onde irá fazer o:
+    Cadastro de alunos, digitando nome e matricula e notas
+    vai precisar de um relatório, onde irá mostrar a lista dos alunos
+    com nome, matricula, notas, média, aprovado/reprovado/recuperação
+    Critério:
+    se a nota for >= 7 aprovado
+    se a nota for entre 5 e menor que 7 - Recuperação
+    se a nota for menor que 5 -  Reprovado
+    */
+    class Aluno{
+        constructor(nome,matricula,notas) {
+            this.nome = nome;
+            this.matricula = matricula;
+            this.notas = notas;
+        }
+        getMedia(){
+            let soma = 0;
+            this.notas.forEach(nota => {
+                soma+= this.nota;
+            });
+            return soma / this.notas.length;
+        }
+        getStatus(){
+            let media = this.getMedia();
+            if(media<5){
+                return "Reprovado";
+            }else if(media<7){
+                return "Recuperação";
+            }
+            return "Aprovado";
+        }
+    }
+    const appData={};
+    appData.banco=[];
+    appData.mostraAluno = (aluno) =>{
+        let texto=`Nome ${aluno.nome}, Matrícula ${aluno.matricula}, Média ${aluno.getMedia().toFixed(2)}\n`;
+        let cont=0;
+        aluno.notas.forEach(nota => {
+            cont+=1;
+            if(cont%2==1&&cont>1){
+                texto+=`\n`;
+            }
+            texto+=`${cont}ª Nota igual a ${nota}           `;
+        });
+        texto+=`\nStatus: ${aluno.getStatus()}\n\n`;
+        return texto;
+    }
+    appData.mostraRelatorio = ()=>{
+        let relatorio="";
+        appData.banco.forEach(aluno => {
+            relatorio+=appData.mostraAluno(aluno);
+        });
+        alert(relatorio)
+    }
+    appData.getNotas=(indice)=>{
+        let val = Number(prompt(`Digite a ${indice}ª nota do aluno/a\nDigite um número menor que 0 para parar de adicionar notas`));
+        if(val<0){
+            return [];
+        }
+        return [val].concat(appData.getNotas(indice+1));
+    }
+    appData.cadastraAluno = ()=>{
+        let nome=prompt("Digite o nome do aluno/a");
+            let matricula=prompt("Digite a matrícula do aluno/a");
+            let nota =appData.getNotas(1);
+            appData.banco.push(new Aluno(nome,matricula,nota));
+    }
+    appData.menu = ()=>{
+        let op=prompt(`
+            1:Cadastro de Alunos, 2:Relatório, 0:Sair do Sistema
+        `)
+        switch(op){
+            case "0":
+                return;
+            case "1":
+                appData.cadastraAluno();
+                break;
+            case "2":
+                appData.mostraRelatorio();
+                break;
+        }
+        appData.menu();
+    }
+    appData.menu();
+
+</script>
