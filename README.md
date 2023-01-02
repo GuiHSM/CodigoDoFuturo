@@ -1,2 +1,2 @@
 # CodigoDoFuturo
-Todos os códigos feitos durante o curso do código do futuro
+Todos os códigos simples feitos durante o curso do código do futuro
